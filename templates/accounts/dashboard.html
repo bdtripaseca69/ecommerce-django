@@ -9,52 +9,44 @@
 
     <div class="container">
         <div class="row">
-        {% include 'includes/dashboard_sidebar.html' %}
+            
+            {% include 'includes/dashboard_sidebar.html' %} <!--211-->
+            <main class="col-md-9">
+                <article class="card">
+                    <header class="card-header">
+                        <strong class="d-inline-block mr-3"> Session started by: </strong>
+                        <span> {{ user.full_name }} </span>
+                    </header>
+                    <div class="card-body">
+                        <div class="row">
 
-
-        <main class="col-md-9">
-            <article class="card">
-            <header class="card-header">
-                <strong class="d-inline-block mr-3"> Sesion iniciada de:  </strong>
-                <span>  {{ user.full_name }}  </span>
-            </header>
-            <div class="card-body">
-                <div class="row">
-
-                    <div class="col-md-6">
-                        <div class="card" style="text-align:center;">
-                            <div class="card-body">
-                              <h5 class="card-title">Total de Ordenes</h5>
-                              <h4>{{ orders_count }}</h4>
-                              <a href="">Ver Ordenes</a>
+                            <div class="col-md-6">
+                                <div class="card" style="text-align:center;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Orders</h5> <!--#211-->
+                                        <h4>{{ orders_count }}</h4>
+                                        <a href="#">See orders</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-6">
-                        <div class="card" style="text-align:center;">
-                            <div class="card-body">
-                                <img src="{{ userprofile.profile_picture.url }}" alt="Imagen de perfil" width="50" height="50" style="border-radius:50%">
-                                <p class="mb-0">{{user.email}}</p>
-                                <p>{{user.phone_number}}</p>
+                            <div class="col-md-6">
+                                <div class="card" style="text-align:center;">
+                                    <div class="card-body">
+                                        <img src="{{userprofile.profile_picture.url}}" alt="Profile " width="50" height="50" style="border-radius:50%">
+                                        <p class="mb-0">{{user.email}}</p>
+                                        <p>Phone: {{user.phone_number}}</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </div> <!-- row.// -->
+                    </div> <!-- card-body .// -->
 
-
-
-
-
-                </div> <!-- row.// -->
-            </div> <!-- card-body .// -->
-
-            </article> <!-- order-group.// -->
-        </main>
-    </div> <!-- row.// -->
+                </article> <!-- order-group.// -->
+            </main>
+        </div> <!-- row.// -->
     </div>
 
-
-    </section>
-    <!-- ========================= SECTION CONTENT END// ========================= -->
-
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
 {% endblock %}

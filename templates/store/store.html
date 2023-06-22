@@ -135,17 +135,17 @@
                 <div class="fix-height">
                   <a href="{{ product.get_url }}" class="title">{{product.product_name}}</a>
                   <div class="price-wrap mt-2">
-                    <span class="price">$ {{ product.price }} </span>
+                    <span class="price">$ {{ product.price }} MX</span>
                   </div> <!-- price-wrap.// -->
                 </div>
-                <a href="#" class="btn btn-block btn-success">Agregar al Carrito </a>
+                <a href="{% url 'add_cart' product.id %}" class="btn btn-block btn-success">Add shopping cart </a>
               </figcaption>
             </figure>
           </div> <!-- col.// -->
           {% endfor %}
           {% else %}
             <div>
-                <h2> No se encontraron resultados. Intente despues. </h2>
+              <h2> We couldn't find any item. Try later. </h2>
             </div>
           {% endif %}
 
@@ -154,30 +154,27 @@
 
         <nav class="mt-4" aria-label="Page navigation sample">
 
-          {% if products.has_other_pages %}
+          {% if products.has_other_pages %} <!--si existen otras paginas mostrara las pestanas  -->
           <ul class="pagination">
 
-            {% if products.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Anterior</a></li>
+            {% if products.has_previous %} <!--valida si hay una pagina anterior, si la hay se habilita el link-->
+              <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Prev</a></li>
             {% else %}
-            <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+              <li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
             {% endif %}
 
-
-            {% for i in products.paginator.page_range %}
-
+            {% for i in products.paginator.page_range %} <!--muestra cuantas paginas hay, si el producto es igual al numero de la pagina, el link de la pagina actual se deshabilita-->
               {% if products.number == i %}
-                <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
               {% else %}
                 <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
               {% endif %}
-
             {% endfor %}
 
             {% if products.has_next %}
-              <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">Siguiente</a></li>
+              <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">Next</a></li>
             {% else %}
-              <li class="page-item disabled"><a class="page-link" href="#">Siguiente</a></li>
+              <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
             {% endif %}
 
           </ul>
@@ -192,7 +189,5 @@
   </div> <!-- container .//  -->
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
-
-
 
 {% endblock %}

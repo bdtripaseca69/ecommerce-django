@@ -1,21 +1,18 @@
 {% if messages %}
 
+<div id="message" class="container">
 
+  {% for message in messages %}
 
-        <div id="message"  class="container">
+  <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert"> <!-- el manejo de alert es para que dependiendo el envio 
+                                                                                                  de datos si se cumple o no automaticamente muestre el 
+                                                                                                  mensaje correspondiente-->
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} Important: {% endif %}
+    {{ message }}  <!-- se complementa con el archivo jvscript svript.js-->
+  </div>
 
-            {% for message in messages %}
+  {% endfor %}
 
-          <div  {% if message.tags %}    class="alert alert-{{ message.tags }}"  {% endif %}  role="alert">
-              {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} Importante: {% endif %}
-              {{ message }}
-          </div>
-
-            {% endfor %}
-            
-        </div>
-
-
-
+</div>
 
 {% endif %}

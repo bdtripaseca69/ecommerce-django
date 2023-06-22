@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from decouple import config #219 manejo de libreria que permite el
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-glerj%dr8gnov8u@gqbw*k(xpq-v4$ot0276wybw6vk^)si@+#'
+SECRET_KEY = config('SECRET_KEY') #219
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool, default= True)  #219... se manda el parametro para que el dato retornado esta en boolean
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://eccommerce-env.eba-whmhxmaq.us-west-2.elasticbeanstalk.com/'] #222 , colocacion del host provicional de aws
 
 
 # Application definition
@@ -40,6 +42,10 @@ INSTALLED_APPS = [
     'category',
     'accounts',
     'store',
+    'carts',
+    'contact_App',
+    'orders',
+    'admin_honeypot', #219 complementar con un migrate
 ]
 
 MIDDLEWARE = [
@@ -50,7 +56,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',  #220 linea que hace uso del timeout para la sesion pip install django-session-timeout
 ]
+#configuracion del tiempo que pasara antes de cerrar sesion #220
+SESSION_EXPIRE_SECONDS = 3600 #segundos
+#interaccion del usuario
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+
+SESSION_TIMEOUT_REDIRECT = 'accounts/login' #redireccion del template despues del timeout
 
 ROOT_URLCONF = 'eccommerce.urls'
 
@@ -66,6 +79,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'category.context_processors.menu_links', #registro del context para el filtrado de las categorias, nombreapp, archivo y funcion
+                'carts.context_processors.counter',
             ],
         },
     },
@@ -133,7 +147,27 @@ STATICFILES_DIRS=[
 MEDIA_URL ='/media/'
 MEDIA_ROOT = BASE_DIR /'media'
 
+
+from django.contrib.messages import constants as messages
+MESSAGES_TAGS = {
+    messages.ERROR: 'danger',
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#parametros para la configuracion del servicio de emails
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+#host
+EMAIL_HOST=config('EMAIL_HOST') #"smtp.gmail.com" #parametros de correo gmail
+#protocolo de segurida del servidos de correo
+EMAIL_USE_TLS= config('EMAIL_USE_TLS', cast=bool, default= True) #True
+EMAIL_PORT = config('EMAIL_PORT', cast=int)  #587
+EMAIL_HOST_USER = config('EMAIL_HOST_USER') #"cuaginais17@gmail.com"
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') #"xjvzefdpgkqmdbit"
+
+#cargar el package en boobtrrap
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

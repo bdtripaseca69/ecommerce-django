@@ -21,9 +21,14 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('securelogin/', admin.site.urls), #219 se complementa con el honeypot, para la creacion de un fack admin adminstrator, complementar en setting.py
+    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')), #para evitar issues se uso esta alternativa: pip install django-admin-honeypot-updated-2021==1.2.0
     path('', views.home, name='Home'),
     path('store/', include('store.urls')),
+    path('cart/', include('carts.urls')),
+    path('contact/', include('contact_App.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('orders/', include('orders.urls')),
 ] 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #indica que la url de los archivos media se le agrege las rutas que siguen a /media
 

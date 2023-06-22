@@ -55,6 +55,10 @@ class Account(AbstractBaseUser):
 
     objects = MyAccountManager() #instanciamiento
 
+    #207 para mostrar een las reviews el nombre completo del usuario
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
     def __str__(self) -> str:
         return self.email
 
@@ -65,3 +69,18 @@ class Account(AbstractBaseUser):
         return True
     
     #continuar en settings.py para especificar que estas clases sean las principales para el guardado de la info de los usuarios
+
+class UserProfile(models.Model): #213, creacion de campos para el template edit profile
+    user = models.OneToOneField(Account, on_delete=models.CASCADE) #tiene uan relacion 1 a 1 con Account  class
+    address_line_1 = models.CharField(blank=True, max_length=150)
+    address_line_2 = models.CharField(blank=True, max_length=150)
+    profile_picture = models.ImageField(blank=True, upload_to='userprofile/')
+    city = models.CharField(blank=True, max_length=50)
+    state = models.CharField(blank=True, max_length=50)
+    country = models.CharField(blank=True, max_length=50)
+
+    def __str__(self) -> str:
+        return self.user.first_name
+    
+    def full_address(self):
+        return f'{self.address_line_1} {self.address_line_2}'
