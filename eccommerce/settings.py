@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY') #219
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool, default= True)  #219... se manda el parametro para que el dato retornado esta en boolean
 
-ALLOWED_HOSTS = ['eccommerce-env.eba-dkfkthnn.us-west-2.elasticbeanstalk.com'] #222 , colocacion del host provicional de aws
+ALLOWED_HOSTS = ['eccommerce-env.eba-shpyuktc.us-west-2.elasticbeanstalk.com'] #222 , colocacion del host provicional de aws
 
 
 # Application definition
