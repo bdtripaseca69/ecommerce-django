@@ -92,7 +92,31 @@ AUTH_USER_MODEL = 'accounts.Account' #aplicacion y clase que manejara la estruct
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+'''DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql', #parametros a cambiar por el uso de postgresql
+        'NAME': "tiendaHardware5", #cambiar por el nombre de la base de datos, tener en cuenta el uso de mayusculas, postgresql las cambia a minusculas
+        'USER': 'postgres',
+        'PASSWORD': 'BDdm98@e',
+        'HOST' : '127.0.0.1',
+        'PORT': '5432',
+    }
+}'''
+
+import os  #223, se debe generar un scrip para que se generen los archivos de migration, continuar en el archivo db-migrate.config
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
+    }
+else:
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql', #parametros a cambiar por el uso de postgresql
         'NAME': "tiendaHardware5", #cambiar por el nombre de la base de datos, tener en cuenta el uso de mayusculas, postgresql las cambia a minusculas
@@ -102,6 +126,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
 
 
 # Password validation
