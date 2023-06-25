@@ -15,7 +15,8 @@ from pathlib import Path
 from decouple import config #219 manejo de libreria que permite el
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve(strict=True).parent.parent  #223
+#BASE_DIR = Path(__file__).resolve(strict=True).parent.parent  #223
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,8 +28,8 @@ SECRET_KEY = config('SECRET_KEY') #219
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool, default= True)  #219... se manda el parametro para que el dato retornado esta en boolean
 
-ALLOWED_HOSTS = ['eccommerce-env.eba-shpyuktc.us-west-2.elasticbeanstalk.com','*'] #222 , colocacion del host provicional de aws
-#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['eccommerce-env.eba-shpyuktc.us-west-2.elasticbeanstalk.com','*'] #222 , colocacion del host provicional de aws
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -46,7 +47,7 @@ INSTALLED_APPS = [
     'contact_App',
     'orders',
     'admin_honeypot', #219 complementar con un migrate
-    'storages',
+    #'storages',
 ]
 
 MIDDLEWARE = [
@@ -93,7 +94,7 @@ AUTH_USER_MODEL = 'accounts.Account' #aplicacion y clase que manejara la estruct
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql', #parametros a cambiar por el uso de postgresql
         'NAME': "tiendaHardware5", #cambiar por el nombre de la base de datos, tener en cuenta el uso de mayusculas, postgresql las cambia a minusculas
@@ -102,9 +103,9 @@ AUTH_USER_MODEL = 'accounts.Account' #aplicacion y clase que manejara la estruct
         'HOST' : '127.0.0.1',
         'PORT': '5432',
     }
-}'''
+}
 
-import os  #223, se debe generar un scrip para que se generen los archivos de migration, continuar en el archivo db-migrate.config
+'''import os  #223, se debe generar un scrip para que se generen los archivos de migration, continuar en el archivo db-migrate.config
 if 'RDS_DB_NAME' in os.environ:
     DATABASES = {
         'default': {
@@ -126,7 +127,7 @@ else:
         'HOST' : '127.0.0.1',
         'PORT': '5432',
     }
-}
+}'''
 
 
 
@@ -164,14 +165,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-'''STATIC_URL = 'static/'    #225
+STATIC_URL = 'static/'    #225
 STATIC_ROOT = BASE_DIR /'static'
 STATICFILES_DIRS=[
     'eccommerce/static'  #se aplico el comando ...manage.py collectstatic
-]'''
+]
 
 # AWS S3 Static Files Configuration    #225
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+'''AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
@@ -181,14 +182,16 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = 'public-read'
 AWS_LOCATION = 'static'
+'''
 
-STATICFILES_DIRS = [
+'''STATICFILES_DIRS = [
     'eccommerce/static',
 ]
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 DEFAULT_FILE_STORAGE = 'eccommerce.media_storages.MediaStorage'
+'''
 
 MEDIA_URL ='/media/'
 MEDIA_ROOT = BASE_DIR /'media'

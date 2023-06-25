@@ -86,5 +86,11 @@ class ReviewRating(models.Model): #202 creacion del modelo de review
     def __str__(self) -> str:
         return self.subject
     
+class ProductGallery(models.Model):  #223
+    product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='store/products', max_length=255)
+
+    def __str__(self) -> str:
+        return self.product.product_name
 
 

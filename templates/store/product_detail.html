@@ -10,18 +10,18 @@
       <div class="row no-gutters">
         <aside class="col-md-6">
           <article class="gallery-wrap">
-            <div class="img-big-wrap mainImage">
+            <div class="img-big-wrap mainImage"> <!--#227-->
               <center><img src="{{ single_product.imagenProduct.url }}"></center>
             </div> <!-- img-big-wrap.// -->
 
           </article> <!-- gallery-wrap .end// -->
 
           <ul class="thumb">
-              <li>
-                  <!--<a href="#" target="mainImage"><img src="{{single_product.imagenProduct.url}}" alt="Imagen del producto">  </a>
+              <li> <!--#227-->
+                  <a href="{{ single_product.imagenProduct.url }}" target="mainImage"><img src="{{single_product.imagenProduct.url}}" alt="Imagen del producto">  </a>
                   {% for i in product_gallery %}
-                      <a href="{{ i.imagenProduct.url }}" target="mainImage"><img src="{{i.imagenProduct.url}}" alt="Imagen del producto">  </a>
-                  {% endfor %}-->
+                      <a href="{{ i.image.url }}" target="mainImage"><img src="{{i.image.url}}" alt="Imagen del producto">  </a>
+                  {% endfor %}
               </li>
           </ul>
 
