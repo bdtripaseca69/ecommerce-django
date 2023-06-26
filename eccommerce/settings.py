@@ -23,14 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = config('SECRET_KEY') #219
-SECRET_KEY = "django-insecure-glerj%dr8gnov8u@gqbw*k(xpq-v4$ot0276wybw6vk^)si@+#"
+SECRET_KEY = config('SECRET_KEY') #219
+#SECRET_KEY = "django-insecure-glerj%dr8gnov8u@gqbw*k(xpq-v4$ot0276wybw6vk^)si@+#"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True#config('DEBUG', cast=bool, default= True)  #219... se manda el parametro para que el dato retornado esta en boolean
+DEBUG = config('DEBUG', cast=bool, default= False)  #219... se manda el parametro para que el dato retornado esta en boolean
 
 #ALLOWED_HOSTS = ['eccommerce-env.eba-shpyuktc.us-west-2.elasticbeanstalk.com','*'] #222 , colocacion del host provicional de aws
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['bd-hw.azurewebsites.net']
 
 # Application definition
 
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  #linea agregada por azure
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -168,6 +169,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'    #225
 STATIC_ROOT = BASE_DIR /'static'
+STATICFILES_STORAGE= 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS=[
     'eccommerce/static'  #se aplico el comando ...manage.py collectstatic
 ]
@@ -211,18 +213,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #parametros para la configuracion del servicio de emails
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 #host
-'''EMAIL_HOST=config('EMAIL_HOST') #"smtp.gmail.com" #parametros de correo gmail
+EMAIL_HOST=config('EMAIL_HOST') #"smtp.gmail.com" #parametros de correo gmail
 #protocolo de segurida del servidos de correo
 EMAIL_USE_TLS= config('EMAIL_USE_TLS', cast=bool, default= True) #True
 EMAIL_PORT = config('EMAIL_PORT', cast=int)  #587
 EMAIL_HOST_USER = config('EMAIL_HOST_USER') #"cuaginais17@gmail.com"
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') #"xjvzefdpgkqmdbit"  '''
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') #"xjvzefdpgkqmdbit" 
 
-EMAIL_HOST='smtp.gmail.com'
+'''EMAIL_HOST='smtp.gmail.com'
 EMAIL_USE_TLS=True
 EMAIL_PORT=587
 EMAIL_HOST_USER='cuaginais17@gmail.com'
-EMAIL_HOST_PASSWORD='xjvzefdpgkqmdbit'
+EMAIL_HOST_PASSWORD='xjvzefdpgkqmdbit' '''
 
 #cargar el package en boobtrrap
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
