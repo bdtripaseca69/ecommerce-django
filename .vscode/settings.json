@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/33207948-cfd1-4417-ac65-2e5041929a97/resourceGroups/BD-HW_group/providers/Microsoft.Web/sites/BD-HW",
+    "appService.deploySubpath": "."
+}

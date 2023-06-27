@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 from decouple import config #219 manejo de libreria que permite el
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,10 +27,10 @@ SECRET_KEY = config('SECRET_KEY') #219
 #SECRET_KEY = "django-insecure-glerj%dr8gnov8u@gqbw*k(xpq-v4$ot0276wybw6vk^)si@+#"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', cast=bool, default= False)  #219... se manda el parametro para que el dato retornado esta en boolean
+DEBUG = config('DEBUG', cast=bool, default= True)  #219... se manda el parametro para que el dato retornado esta en boolean
 
 #ALLOWED_HOSTS = ['eccommerce-env.eba-shpyuktc.us-west-2.elasticbeanstalk.com','*'] #222 , colocacion del host provicional de aws
-ALLOWED_HOSTS = ['bd-hw.azurewebsites.net']
+ALLOWED_HOSTS = ['bd-hw1.azurewebsites.net']
 
 # Application definition
 
@@ -100,10 +100,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql', #parametros a cambiar por el uso de postgresql
         'NAME': "tiendaHardware5", #cambiar por el nombre de la base de datos, tener en cuenta el uso de mayusculas, postgresql las cambia a minusculas
-        'USER': 'postgres',
-        'PASSWORD': 'BDdm98@e',
-        'HOST' : '127.0.0.1',
+        'USER': 'tripaseca',
+        'PASSWORD': os.getenv('BD_PASSWORD'),
+        'HOST' : 'bd-hw.postgres.database.azure.com',
         'PORT': '5432',
+        'OPTIONS':{'sslmode': 'require'},
     }
 }
 
@@ -169,7 +170,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'    #225
 STATIC_ROOT = BASE_DIR /'static'
-STATICFILES_STORAGE= 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE= "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATICFILES_DIRS=[
     'eccommerce/static'  #se aplico el comando ...manage.py collectstatic
 ]
