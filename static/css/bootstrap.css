@@ -1,6 +1,6 @@
 @charset "UTF-8";
 :root {
-  --blue: #3167eb;
+  --blue: #0071c5;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -152,12 +152,12 @@ sup {
 }
 
 a {
-  color: #3167eb;
+  color: #0071c5;
   text-decoration: none;
   background-color: transparent;
 }
 a:hover {
-  color: #1244bd;
+  color: #0071c5;
   text-decoration: underline;
 }
 

@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY') #219
 DEBUG = config('DEBUG', cast=bool, default= True)  #219... se manda el parametro para que el dato retornado esta en boolean
 
 #ALLOWED_HOSTS = ['eccommerce-env.eba-shpyuktc.us-west-2.elasticbeanstalk.com','*'] #222 , colocacion del host provicional de aws
-ALLOWED_HOSTS = ['bd-hw1.azurewebsites.net']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -53,7 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  #linea agregada por azure
+    #'whitenoise.middleware.WhiteNoiseMiddleware',  #linea agregada por azure
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -96,17 +96,31 @@ AUTH_USER_MODEL = 'accounts.Account' #aplicacion y clase que manejara la estruct
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql', #parametros a cambiar por el uso de postgresql
         'NAME': "tiendaHardware5", #cambiar por el nombre de la base de datos, tener en cuenta el uso de mayusculas, postgresql las cambia a minusculas
         'USER': 'tripaseca',
-        'PASSWORD': os.getenv('BD_PASSWORD'),
+        'PASSWORD': 'BDdm98@e', #os.getenv('BD_PASSWORD'),
         'HOST' : 'bd-hw.postgres.database.azure.com',
         'PORT': '5432',
-        'OPTIONS':{'sslmode': 'require'},
+        #'OPTIONS':{'sslmode': 'require'},
     }
 }
+
+'''DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql', #parametros a cambiar por el uso de postgresql
+        'NAME': "tiendaHardware5", #cambiar por el nombre de la base de datos, tener en cuenta el uso de mayusculas, postgresql las cambia a minusculas
+        'USER': 'postgres',
+        'PASSWORD': 'BDdm98@e',
+        'HOST' : '127.0.0.1',
+        'PORT': '5432',
+    }
+}'''
 
 '''import os  #223, se debe generar un scrip para que se generen los archivos de migration, continuar en el archivo db-migrate.config
 if 'RDS_DB_NAME' in os.environ:
@@ -170,7 +184,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'    #225
 STATIC_ROOT = BASE_DIR /'static'
-STATICFILES_STORAGE= "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATICFILES_DIRS=[
     'eccommerce/static'  #se aplico el comando ...manage.py collectstatic
 ]
@@ -230,3 +243,7 @@ EMAIL_HOST_PASSWORD='xjvzefdpgkqmdbit' '''
 #cargar el package en boobtrrap
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+import os
+if 'WEBSITE_HOSTNAME' in os.environ: # Running on Azure
+    from .azure import *

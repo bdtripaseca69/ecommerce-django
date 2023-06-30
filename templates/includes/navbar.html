@@ -1,7 +1,7 @@
 {% load static %}
 
 <header class="section-header">
-<nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
+<!-- <nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
 <div class="container">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -19,10 +19,10 @@
     <ul class="navbar-nav">
     <li><a href="{% url 'contact' %}" class="nav-link"> <i class="fa fa-envelope"></i> Email </a></li>
     <li><a href="#" class="nav-link"> <i class="fa fa-phone"></i> Call us</a></li>
-  </ul> <!-- list-inline //  -->
-  </div> <!-- navbar-collapse .// -->
-</div> <!-- container //  -->
-</nav>
+  </ul> list-inline 
+  </div> 
+</div> 
+</nav>  -->
 
 <section class="header-main border-bottom">
   <div class="container">
@@ -47,15 +47,15 @@
   </div> <!-- col.// -->
   <a href="{% url 'store' %}" class="btn btn-outline-primary">Store</a>
   <div class="col-lg  col-md-6 col-sm-12 col">
-
+    
     <form action="{% url 'search' %}" class="search"> <!--action que manda los parametros del input (en base al name) al link search donde se ejecutara la view search-->
       <div class="input-group w-100">
           <input type="text" class="form-control" style="width:60%;" placeholder="search" name="keyword">
-
           <div class="input-group-append">
             <button class="btn btn-primary" type="submit"> <i class="fa fa-search"></i> </button>
           </div>
         </div>
+        {% include 'includes/alerts.html' %}
     </form> <!-- search-wrap .end// -->
 
 

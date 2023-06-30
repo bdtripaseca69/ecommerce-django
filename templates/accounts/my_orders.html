@@ -24,9 +24,9 @@
                                         <tr>
                                             <th scope="col"># Order</th>
                                             <th scope="col">Name </th>
-                                            <th scope="col">Phone</th>
                                             <th scope="col">Total Order</th>
                                             <th scope="col">Date</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -34,9 +34,9 @@
                                         <tr>
                                             <th scope="row">{{ order.order_number }}</th>
                                             <td>{{ user.full_name }}</td>
-                                            <td>{{order.phone}}</td>
                                             <td>${{order.order_total}}</td>
                                             <td>{{order.created_at}}</td>
+                                            <td>{{product.product_name}}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>

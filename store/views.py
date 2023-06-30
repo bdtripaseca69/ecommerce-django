@@ -8,6 +8,7 @@ from django.db.models import Q #libreria para el apoyo en el uso de los campos s
 from .forms import ReviewForm
 from django.contrib import messages
 from orders.models import OrderProduct
+from django.contrib import messages
 
 # Create your views here.
 def store(request, category_slug=None):
@@ -78,6 +79,10 @@ def search(request):
                             #ordenamiento por la fecha de creacion, descendiente
             products = Product.objects.order_by('-created_date').filter(Q(descripcion__icontains = keyword) | Q(product_name__icontains = keyword))  #query el keyword se comparara con el campo product_name y descripcion de la tabla producto
             product_count = products.count()
+        else:
+            messages.error(request, "Write anything else")
+            return redirect('Home')
+
     context = {
         'products': products,
         'product_count':product_count,

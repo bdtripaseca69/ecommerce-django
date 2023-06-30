@@ -12,6 +12,7 @@ from django.utils.encoding import force_bytes
 from django.core.mail import EmailMessage
 from carts.views import _cart_id # funcion que permitira  buscar si hay un carrito de compras
 from carts.models import Cart, CartItem
+from store.models import Product
 import requests
 # Create your views here.
 
@@ -221,7 +222,7 @@ def resetPassword(request):
     
 #crear la vista y obtener los datos de cada orden de compra,    #212
 def my_orders(request):
-    orders = Order.objects.filter(user = request.user, is_ordered =True).order_by('-created_at')
+    orders = Order.objects.filter(user = request.user, is_ordered =True).order_by('-created_at')    
     context = {
         'orders': orders,
     }
