@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
+SECRET_KEY = config('SECRET_KEY') #219
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool, default= True)  #219... se manda el parametro para que el dato retornado esta en boolean
@@ -96,11 +96,17 @@ AUTH_USER_MODEL = 'accounts.Account' #aplicacion y clase que manejara la estruct
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-
-
-
-
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql', #parametros a cambiar por el uso de postgresql
+        'NAME': "tiendaHardware5", #cambiar por el nombre de la base de datos, tener en cuenta el uso de mayusculas, postgresql las cambia a minusculas
+        'USER': 'tripaseca',
+        'PASSWORD': '', #os.getenv('BD_PASSWORD'),
+        'HOST' : '',
+        'PORT': '5432',
+        #'OPTIONS':{'sslmode': 'require'},
+    }
+}
 
 
 # Password validation
