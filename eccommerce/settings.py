@@ -23,8 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY') #219
-#SECRET_KEY = "django-insecure-glerj%dr8gnov8u@gqbw*k(xpq-v4$ot0276wybw6vk^)si@+#"
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool, default= True)  #219... se manda el parametro para que el dato retornado esta en boolean
@@ -99,52 +98,8 @@ AUTH_USER_MODEL = 'accounts.Account' #aplicacion y clase que manejara la estruct
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql', #parametros a cambiar por el uso de postgresql
-        'NAME': "tiendaHardware5", #cambiar por el nombre de la base de datos, tener en cuenta el uso de mayusculas, postgresql las cambia a minusculas
-        'USER': 'tripaseca',
-        'PASSWORD': 'BDdm98@e', #os.getenv('BD_PASSWORD'),
-        'HOST' : 'bd-hw.postgres.database.azure.com',
-        'PORT': '5432',
-        #'OPTIONS':{'sslmode': 'require'},
-    }
-}
 
-'''DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql', #parametros a cambiar por el uso de postgresql
-        'NAME': "tiendaHardware5", #cambiar por el nombre de la base de datos, tener en cuenta el uso de mayusculas, postgresql las cambia a minusculas
-        'USER': 'postgres',
-        'PASSWORD': 'BDdm98@e',
-        'HOST' : '127.0.0.1',
-        'PORT': '5432',
-    }
-}'''
 
-'''import os  #223, se debe generar un scrip para que se generen los archivos de migration, continuar en el archivo db-migrate.config
-if 'RDS_DB_NAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
-        }
-    }
-else:
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql', #parametros a cambiar por el uso de postgresql
-        'NAME': "tiendaHardware5", #cambiar por el nombre de la base de datos, tener en cuenta el uso de mayusculas, postgresql las cambia a minusculas
-        'USER': 'postgres',
-        'PASSWORD': 'BDdm98@e',
-        'HOST' : '127.0.0.1',
-        'PORT': '5432',
-    }
-}'''
 
 
 
